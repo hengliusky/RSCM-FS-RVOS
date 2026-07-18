@@ -73,9 +73,7 @@ Please download the datasets from:
 
 [Google Drive: Mini-DAVIS and Mini-MeViS](https://drive.google.com/drive/folders/1q-3zaKZREesxM4tb9ycZw6wxlLeoc9dl?usp=drive_link)
 
-Please download Mini-DAVIS and Mini-MeViS from:
 
-[Google Drive: Mini-DAVIS and Mini-MeViS](填入你自己的Google Drive链接)
 
 ## Directory Structure
 
