@@ -1,17 +1,22 @@
-The datasets and benchmark protocol for:
+
 
 <div align="center">
 <h1>
 <b>
-Few-Shot Referring Video Object Segmentation Datasets
+RSCM: Reliable Support Construction Model for Few-Shot Referring Video Object Segmentation
 </b>
 </h1>
 </div>
 
+<p align="center">
+  <img src="docs/overview.png" width="800"/>
+</p>
 
-Few-Shot Referring Video Object Segmentation (FS-RVOS) aims to segment the object specified by a natural-language expression in a query video, given only a small number of annotated support samples. In contrast to conventional referring video object segmentation, FS-RVOS requires models to generalize to unseen object categories and establish reliable cross-video correspondence between query and support videos under limited supervision.
+Few-Shot Referring Video Object Segmentation (FS-RVOS) aims to segment a language-referred object in a query video from only a few annotated support frames, including object masks and referring expressions. Existing methods often rely on compact foreground prototypes, direct support-query matching, indiscriminate multi-support aggregation, or randomly sampled support frames. These designs are vulnerable to incomplete target representations, background distractors, unreliable support injection, and unstable cross-video correspondence under occlusion, appearance variation, and complex motion.
 
-This repository provides the dataset splits, referring expressions, segmentation annotations, support-query metadata, and evaluation protocols used in:
+In this paper, we propose RSCM, a Reliable Support Construction Model for FS-RVOS, which improves support utilization from the perspectives of support construction, prototype modeling, and support-query interaction. RSCM explicitly constructs foreground and background support prototypes to model target evidence and background counter-evidence. A support-guided prototype agent injects support priors into query features through gated residual adaptation. In addition, a query-aware multi-support aggregation mechanism derives a soft query prior and estimates frame-level and token-level reliability for adaptive support aggregation. We further introduce a reliability-weighted support selection strategy to construct a reliable support window from a category-specific candidate pool.
+
+To facilitate research on FS-RVOS, we provide the benchmark data and evaluation protocols used in our experiments, including Mini-Ref-YouTube-VOS, Mini-Ref-SAIL-VOS, Mini-DAVIS, and Mini-MeViS. The datasets support category-disjoint few-shot evaluation, direct cross-domain evaluation, and multi-object referring video segmentation.
 
 > **RSCM: Reliable Support Construction Model for Few-Shot Referring Video Object Segmentation**
 >
@@ -22,62 +27,21 @@ This repository provides the dataset splits, referring expressions, segmentation
 >
 > <sup>*</sup> Corresponding author: Heng Liu
 
-The repository includes four benchmarks: Mini-Ref-YouTube-VOS, Mini-Ref-SAIL-VOS, Mini-DAVIS, and Mini-MeViS. These benchmarks support category-disjoint few-shot evaluation, direct cross-domain evaluation, and multi-object referring video segmentation.
+> Paper: To be released.
 
-> **Note:** This repository provides datasets and benchmark protocols only. The implementation of RSCM will be released separately.
+## Data Preparation
 
-## Dataset Overview
+Create a new directory named `data` to store all datasets.
 
-| Dataset | Source Dataset | Main Purpose |
-|---|---|---|
-| Mini-Ref-YouTube-VOS | Ref-YouTube-VOS | Category-disjoint FS-RVOS evaluation |
-| Mini-Ref-SAIL-VOS | SAIL-VOS | Direct cross-domain evaluation |
-| Mini-DAVIS | Ref-DAVIS17 | Direct cross-domain evaluation on real-world videos |
-| Mini-MeViS | MeViS | Multi-object and motion-centric evaluation |
+1. Download Mini-Ref-YouTube-VOS and Mini-Ref-SAIL-VOS from the public release of the IJCV 2025 paper:
 
-### Mini-Ref-YouTube-VOS
+   [Google Drive: Mini-Ref-YouTube-VOS and Mini-Ref-SAIL-VOS](https://drive.google.com/drive/folders/1ZdrQY8gKKEmMoJxP13ZZ5_Qrc4hGoZUj?usp=sharing)
 
-Mini-Ref-YouTube-VOS is a category-disjoint FS-RVOS benchmark derived from Ref-YouTube-VOS. It contains 1,668 videos from 48 semantic categories, together with referring expressions and pixel-level object annotations.
+2. Download Mini-DAVIS and Mini-MeViS from:
 
-The 48 categories are partitioned into four mutually exclusive groups, with 12 categories in each group. For Group-\(n\) evaluation, the 12 categories in Group-\(n\) are held out for testing, while the categories in the remaining three groups are used for training.
+   [Google Drive: Mini-DAVIS and Mini-MeViS](https://drive.google.com/drive/folders/1q-3zaKZREesxM4tb9ycZw6wxlLeoc9dl?usp=drive_link)
 
-During testing, the query video and its candidate support pool are sampled from different videos belonging to the same held-out category.
-
-### Mini-Ref-SAIL-VOS
-
-Mini-Ref-SAIL-VOS is adapted from SAIL-VOS and is used for direct cross-domain evaluation. It contains challenging cases involving occlusion, shot transitions, large appearance variations, and cluttered backgrounds.
-
-Models are directly evaluated on Mini-Ref-SAIL-VOS without target-domain training or fine-tuning.
-
-### Mini-DAVIS
-
-Mini-DAVIS is adapted from Ref-DAVIS17 and is used for direct cross-domain evaluation on real-world videos. It mainly contains single-object videos and a small number of same-category two-instance cases.
-
-### Mini-MeViS
-
-Mini-MeViS is adapted from MeViS under the FS-RVOS protocol. It contains multi-object scenes and motion-centric referring expressions, making it suitable for evaluating target disambiguation and temporal reasoning.
-
-## Dataset Download
-
-### Mini-Ref-YouTube-VOS and Mini-Ref-SAIL-VOS
-
-Mini-Ref-YouTube-VOS and Mini-Ref-SAIL-VOS are publicly available from the dataset release of the following IJCV paper:
-
-> **Few-Shot Referring Video Single- and Multi-Object Segmentation via Cross-Modal Affinity with Instance Sequence Matching**  
-> Heng Liu, Guanghui Li, Mingqi Gao, Xiantong Zhen, Feng Zheng, and Yang Wang.  
-> *International Journal of Computer Vision (IJCV), 2025.*
-
-Please download the datasets from:
-
-[Google Drive: Mini-Ref-YouTube-VOS and Mini-Ref-SAIL-VOS](https://drive.google.com/drive/folders/1ZdrQY8gKKEmMoJxP13ZZ5_Qrc4hGoZUj?usp=sharing)
-
-[Google Drive: Mini-DAVIS and Mini-MeViS](https://drive.google.com/drive/folders/1q-3zaKZREesxM4tb9ycZw6wxlLeoc9dl?usp=drive_link)
-
-
-
-## Directory Structure
-
-After downloading and extracting the datasets, please organize them as follows:
+3. Extract all dataset packages into the `./data` directory.
 
 ```text
 data
