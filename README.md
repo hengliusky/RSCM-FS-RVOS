@@ -8,9 +8,7 @@ RSCM: Reliable Support Construction Model for Few-Shot Referring Video Object Se
 </h1>
 </div>
 
-<p align="center">
-  <img src="docs/overview.png" width="800"/>
-</p>
+
 
 Few-Shot Referring Video Object Segmentation (FS-RVOS) aims to segment a language-referred object in a query video from only a few annotated support frames, including object masks and referring expressions. Existing methods often rely on compact foreground prototypes, direct support-query matching, indiscriminate multi-support aggregation, or randomly sampled support frames. These designs are vulnerable to incomplete target representations, background distractors, unreliable support injection, and unstable cross-video correspondence under occlusion, appearance variation, and complex motion.
 
